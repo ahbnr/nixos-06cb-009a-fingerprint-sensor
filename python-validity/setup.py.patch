@@ -1,0 +1,19 @@
+diff --git a/setup.py b/setup.py
+index 9c53e29..eace20d 100755
+--- a/setup.py
++++ b/setup.py
+@@ -7,13 +7,13 @@ setup(name='python-validity',
+       py_modules=[],
+       packages=['validitysensor'],
+       scripts=[
++          'dbus_service/python-validity-dbus-service',
+           'bin/validity-led-dance',
+           'bin/validity-sensors-firmware',
+       ],
+       install_requires=['cryptography >= 2.1.4', 'pyusb >= 1.0.0', 'pyyaml >= 3.12'],
+       data_files=[
+           ('share/dbus-1/system.d/', ['dbus_service/io.github.uunicorn.Fprint.conf']),
+-          ('lib/python-validity/', ['dbus_service/dbus-service']),
+           ('share/python-validity/playground/', [
+               'scripts/dbus-cmd.py', 'scripts/lsdbus.py', 'scripts/factory-reset.py',
+               'scripts/prototype.py'

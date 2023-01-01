@@ -1,0 +1,8 @@
+diff --git a/scripts/resume.py b/scripts/open-fprintd-resume.py
+similarity index 100%
+rename from scripts/resume.py
+rename to scripts/open-fprintd-resume.py
+diff --git a/scripts/suspend.py b/scripts/open-fprintd-suspend.py
+similarity index 100%
+rename from scripts/suspend.py
+rename to scripts/open-fprintd-suspend.py

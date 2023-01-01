@@ -1,0 +1,4 @@
+diff --git a/dbus_service/dbus-service b/dbus_service/python-validity-dbus-service
+similarity index 100%
+rename from dbus_service/dbus-service
+rename to dbus_service/python-validity-dbus-service
