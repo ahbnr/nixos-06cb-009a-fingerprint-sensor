@@ -1,0 +1,14 @@
+diff --git a/vfs0090.c b/vfs0090.c
+index 66f6885..f08d283 100644
+--- a/vfs0090.c
++++ b/vfs0090.c
+@@ -1657,9 +1657,6 @@ restart_scan_or_deactivate (FpiDeviceVfs0090 *vdev)
+ static gboolean
+ vfs_device_supports_capture (FpDevice *dev)
+ {
+-  if (!fp_device_has_feature (dev, FP_DEVICE_FEATURE_CAPTURE))
+-    return FALSE;
+-
+   return fpi_device_get_driver_data (dev) == FPI_DEVICE_ACTION_CAPTURE;
+ }
+ 

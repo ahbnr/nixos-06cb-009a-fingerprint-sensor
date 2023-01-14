@@ -1,0 +1,23 @@
+diff --git a/gen_scan_matrix.py b/gen_scan_matrix.py
+index a70d3c4..744c8b9 100644
+--- a/gen_scan_matrix.py
++++ b/gen_scan_matrix.py
+@@ -46,15 +46,14 @@ unsigned char SCAN_MATRIX[] = {''')
+     mylist = mylist[:-2] + '\n};\n'
+     return mylist
+ 
+-if os.path.isfile(header_path):
+-    if os.path.getctime(header_path) > os.path.getctime(calib_data_path):
+-        exit(1)
+-
+ # load calib file
+ if os.path.isfile(calib_data_path):
+     with open(calib_data_path, 'rb') as f:
+         sensor.calib_data = f.read()
+         logging.info('Calibration data loaded from a file.')
++else:
++    logging.info('Failed to load calibration data.')
++    exit(1)
+ 
+ # blobs getting
+ sensor.hardcoded_prog = unhex(''' 

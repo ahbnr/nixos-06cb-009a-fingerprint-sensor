@@ -1,0 +1,22 @@
+diff --git a/vfs0090.c b/vfs0090.c
+index 66f6885..be24231 100644
+--- a/vfs0090.c
++++ b/vfs0090.c
+@@ -1632,7 +1632,7 @@ led_blink_callback_with_ssm (FpiUsbTransfer *transfer, FpDevice *dev,
+ 
+   if (!error)
+     {
+-      fpi_ssm_next_state_delayed (ssm, 200);
++      fpi_ssm_next_state_delayed (ssm, 200, NULL);
+     }
+   else
+     {
+@@ -2954,7 +2954,7 @@ reactivate_ssm (FpiSsm *ssm, FpDevice *dev)
+   switch (fpi_ssm_get_cur_state (ssm))
+     {
+     case REACTIVATE_STATE_WAIT:
+-      fpi_ssm_next_state_delayed (ssm, 100);
++      fpi_ssm_next_state_delayed (ssm, 100, NULL);
+       break;
+ 
+     case REACTIVATE_STATE_DEACTIVATE:
