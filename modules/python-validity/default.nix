@@ -18,5 +18,7 @@ with lib;
 
   config = mkIf cfg.enable {
     systemd.packages = [ pkgs.python-validity ];
+
+    systemd.services.python3-validity.wantedBy = [ "multi-user.target" ];
   };
 }
