@@ -15,6 +15,12 @@
     nixosModules.python-validity = import ./modules/python-validity;
     nixosModules.open-fprintd = import ./modules/open-fprintd;
 
+    overlay = final: prev: let
+      localPkgs = import ./default.nix { pkgs = final; };
+    in {
+      inherit (localPkgs) fprintd-clients open-fprintd python-validity;
+    };
+
     packages = forAllSystems (system:
       import ./default.nix {
         pkgs = import nixpkgs {inherit system;};
