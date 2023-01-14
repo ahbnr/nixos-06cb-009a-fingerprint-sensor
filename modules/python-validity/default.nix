@@ -18,5 +18,5 @@ with lib;
 
   config = mkIf cfg.enable {
     systemd.packages = [ pkgs.python-validity ];
-  }
+  };
 }
