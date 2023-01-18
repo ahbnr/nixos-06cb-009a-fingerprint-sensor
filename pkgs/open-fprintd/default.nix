@@ -52,6 +52,8 @@ in buildPythonPackage rec {
   '';
 
   postInstall = ''
+    # this section has been adapted from this AUR package: https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=open-fprintd
+
     install -D -m 644 debian/open-fprintd.service \
       $out/lib/systemd/system/open-fprintd.service
 

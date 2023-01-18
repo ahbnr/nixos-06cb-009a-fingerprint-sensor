@@ -1,3 +1,12 @@
+# This package builds https://gitlab.com/bingch/libfprint-tod-vfs0090
+# by bingch
+#
+# It is a fork of the fprintd-tod driver https://gitlab.freedesktop.org/3v1n0/libfprint-tod-vfs0090
+# which supports the 06cb:009a device.
+#
+# This file is mostly based on https://github.com/NixOS/nixpkgs/blob/nixos-22.11/pkgs/development/libraries/libfprint-2-tod1-vfs0090/default.nix#L36
+# with a few small modifications.
+#
 { stdenv, lib, fetchFromGitLab, pkg-config, libfprint-tod, gusb, udev, nss, openssl, meson, pixman, ninja, glib, python3, python3Packages, python-validity, calib-data }:
 stdenv.mkDerivation {
   pname = "libfprint-2-tod1-vfs0090";
@@ -26,19 +35,9 @@ stdenv.mkDerivation {
   postPatch = ''
     substituteInPlace ./gen_scan_matrix.py \
       --replace "calib_data_path" "'${calib-data}/share/calib-data.bin'"
-
-    # substituteInPlace ./gen_scan_matrix.py \
-    #   --replace "#!/usr/bin/python" "#!/usr/bin/env python3"
-
-    # substituteInPlace ./gen_scan_matrix.py \
-    #   --replace "calib_data_path" "{calibDataPath}"
-
-    # the python script must be executable, otherwise it wont be wrapped
-    # chmod +x gen_scan_matrix.py
-    # wrapPythonProgramsIn ./ "$out $pythonPath"
   '';
 
-  nativeBuildInputs = [ pkg-config meson ninja python3 python3Packages.wrapPython python-validity ];
+  nativeBuildInputs = [ pkg-config meson ninja python3 python-validity ];
   buildInputs = [ libfprint-tod glib gusb udev nss openssl pixman ];
 
   installPhase = ''
@@ -57,6 +56,5 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.freedesktop.org/3v1n0/libfprint-tod-vfs0090";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ valodim ];
   };
 }

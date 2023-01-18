@@ -1,3 +1,9 @@
+# This package builds https://gitlab.freedesktop.org/uunicorn/fprintd
+# It provides the fprintd-enroll, fprintd-list, etc. user utilties when using open-fprintd.
+#
+# This package is mostly based on https://github.com/NixOS/nixpkgs/blob/release-20.09/pkgs/tools/security/fprintd/default.nix
+# with only small modifications
+
 { lib, stdenv
 , fetchFromGitLab
 , fetchpatch
@@ -114,7 +120,6 @@ stdenv.mkDerivation rec {
     description = "Fprintd without the daemon";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar elyhaka ];
   };
 }
 
