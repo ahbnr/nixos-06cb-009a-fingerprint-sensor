@@ -15,8 +15,9 @@
     nixosModules.python-validity = import ./modules/python-validity;
     nixosModules.open-fprintd = import ./modules/open-fprintd;
 
-    calib-data =  ./pkgs/calib-data/default.nix;
-    libfprint-2-tod1-vfs0090-bingch = ./pkgs/libfprint-2-tod1-vfs0090-bingch/default.nix;
+    lib = import ./lib {
+      pkgs = import <nixpkgs> {};
+    };
 
     overlay = final: prev: let
       localPkgs = import ./default.nix { pkgs = final; };
