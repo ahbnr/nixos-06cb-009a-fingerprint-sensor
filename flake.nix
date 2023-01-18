@@ -11,24 +11,17 @@
   }: let
     supportedSystems = [ "x86_64-linux" ];
     forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
+    pkgs = import nixpkgs {};
+    localPackages = import ./pkgs/default.nix { pkgs = pkgs; };
   in {
-    nixosModules.python-validity = import ./modules/python-validity;
-    nixosModules.open-fprintd = import ./modules/open-fprintd;
+    nixosModules.python-validity = { config, lib, ... }: import ./modules/python-validity { config = config; lib = lib; localPackages = localPackages; };
+    nixosModules.open-fprintd = { config, lib, ... }: import ./modules/open-fprintd { config = config; lib = lib; localPackages = localPackages; };
+
+    localPackages = localPackages;
 
     lib = import ./lib {
-      pkgs = import <nixpkgs> {};
+      pkgs = pkgs;
+      localPackages = localPackages;
     };
-
-    overlay = final: prev: let
-      localPkgs = import ./default.nix { pkgs = final; };
-    in {
-      inherit (localPkgs) fprintd-clients open-fprintd python-validity;
-    };
-
-    packages = forAllSystems (system:
-      import ./default.nix {
-        pkgs = import nixpkgs {inherit system;};
-      }
-    );
   };
 }

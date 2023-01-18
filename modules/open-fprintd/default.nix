@@ -1,4 +1,4 @@
-{config, pkgs, lib, ...}:
+{config, lib, localPackages, ...}:
 
 let
   cfg = config.services.open-fprintd;
@@ -17,9 +17,14 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = [ pkgs.open-fprintd ];
+    environment.systemPackages = [ localPackages.fprintd-clients ];
+
+    systemd.packages = [ localPackages.open-fprintd ];
 
     # need to register the dbus configuration files of the package, otherwise we will get access errors
-    services.dbus.packages = [ pkgs.open-fprintd ];
+    services.dbus.packages = [ localPackages.open-fprintd ];
+
+    # disable fprintd, since we are replacing it with open-fprintd and we are using the user executable of fprintd-clients
+    services.fprintd.enable = false;
   };
 }

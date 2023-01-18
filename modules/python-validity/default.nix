@@ -1,4 +1,4 @@
-{config, pkgs, lib, ...}:
+{config, lib, localPackages, ...}:
 
 let
   cfg = config.services.python-validity;
@@ -17,10 +17,10 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = [ pkgs.python-validity ];
+    systemd.packages = [ localPackages.python-validity ];
     systemd.services.python3-validity.wantedBy = [ "multi-user.target" ];
 
     # need to register the dbus configuration files of the package, otherwise we will get access errors
-    services.dbus.packages = [ pkgs.python-validity ];
+    services.dbus.packages = [ localPackages.python-validity ];
   };
 }
