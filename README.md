@@ -10,6 +10,12 @@ There are two ways this flake can be used to drive the sensor:
 
 2. Using the [libfprint-tod-vfs0090 fork by bingch](https://gitlab.com/bingch/libfprint-tod-vfs0090). This is slightly more complex to set up, but this driver integrates well with fprintd and thus proper authentication mechanisms are in place. Also, this approach is compatible with any service relying on fprintd. With a small change as described below, this setup is probably also compatible with the 138a:0097 sensor (untested!).
 
+# Important Note
+
+Currently this flake requires you to use the `--impure` flag when calling `nixos-rebuild`.
+See also this issue: https://github.com/ahbnr/nixos-06cb-009a-fingerprint-sensor/issues/1
+However, the issue is already being worked on and it should be resolved in the near future.
+
 # Table of Contents
 
 * [Loading the flake](#loading-this-flake)
