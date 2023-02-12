@@ -9,9 +9,7 @@
     self,
     nixpkgs
   }: let
-    supportedSystems = [ "x86_64-linux" ];
-    forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
-    pkgs = import nixpkgs {};
+    pkgs = import nixpkgs { system = "x86_64-linux"; };
     localPackages = import ./pkgs/default.nix { pkgs = pkgs; };
   in {
     nixosModules.python-validity = { config, lib, ... }: import ./modules/python-validity { config = config; lib = lib; localPackages = localPackages; };
