@@ -5,7 +5,7 @@
 # ../pkgs/libfprint-2-tod1-vfs0090-bingch
 {
   stdenv,
-  pkgs ? import <nixpkgs> { system = builtins.currentSystem; },
+  pkgs,
   calib-data-file
 }:
 

@@ -1,9 +1,9 @@
 {
-  pkgs ? import <nixpkgs> { system = builtins.currentSystem; },
-  lib ? pkgs.lib,
-  stdenv ? pkgs.stdenv,
-  fetchFromGitHub ? pkgs.fetchFromGitHub,
-  python3Packages ? pkgs.python3Packages,
+  pkgs,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages
 }:
 
 let
