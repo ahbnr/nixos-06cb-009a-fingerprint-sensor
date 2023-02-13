@@ -1,7 +1,6 @@
 This Nix flake packages the necessary software for driving the 06cb:009a fingerprint sensor (used in ThinkPads like the T480 or T480s).
 It has been tested with a T480. With some small changes, the flake can probably also be used to setup the sensor 138a:0097 used in other ThinkPads (untested!). See further info below.
 
-This repository is very much "work-in-progress", see also this issue: https://github.com/NixOS/nixpkgs/issues/207116.
 I do not take any responsibility for any issues caused by the use of this flake.
 
 There are two ways this flake can be used to drive the sensor:
