@@ -24,12 +24,15 @@ inputs = {
 
   nixos-06cb-009a-fingerprint-sensor = {
     url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
-    inputs.nixpkgs.follows = "nixpkgs";
   };
 };
 ```
 
 For general information on using flakes with NixOS, see this guide: https://nixos.wiki/wiki/Flakes#Using_nix_flakes_with_NixOS
+
+This flake has only been tested with NixOS stable 22.11, and [does not work yet with the `nixpkgs` from NixOS unstable](https://github.com/ahbnr/nixos-06cb-009a-fingerprint-sensor/issues/2).
+You can still use it though when running your system with unstable nixpkgs, by not forcing this flake to follow your nixpkgs.
+That is, **do not** add a line like `inputs.nixpkgs.follows = "nixpkgs";` to the flake input above, then it should just work.
 
 # Setup based on open-fprintd and python-validity
 
