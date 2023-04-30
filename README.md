@@ -13,7 +13,7 @@ There are two ways this flake can be used to drive the sensor:
 
 * [Loading the flake](#loading-this-flake)
 * [Setup based on open-fprintd and python-validity](#setup-based-on-open-fprintd-and-python-validity)
-* [Setup based on fprintd and bingch's driver](#setup-based-on-fprintd-and-bingch-s-driver)
+* [Setup based on fprintd and bingch's driver](#setup-based-on-fprintd-and-bingchs-driver)
 
 # Loading this flake
 
