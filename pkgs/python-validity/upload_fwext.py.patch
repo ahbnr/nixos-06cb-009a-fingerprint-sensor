@@ -1,0 +1,15 @@
+diff --git a/validitysensor/upload_fwext.py b/validitysensor/upload_fwext.py
+index cfe3132..9dc91f6 100644
+--- a/validitysensor/upload_fwext.py
++++ b/validitysensor/upload_fwext.py
+@@ -7,8 +7,9 @@ from .firmware_tables import FIRMWARE_NAMES
+ from .flash import write_flash_all, write_fw_signature, get_fw_info
+ from .sensor import reboot, write_hw_reg32, read_hw_reg32, identify_sensor
+ from .usb import usb, SupportedDevices
++from .tmpdir import tmpdir
+ 
+-firmware_home = '/usr/share/python-validity'
++firmware_home = tmpdir
+ 
+ 
+ def default_fwext_name():

@@ -1,14 +1,15 @@
 diff --git a/bin/validity-sensors-firmware b/bin/validity-sensors-firmware
-index e585f1c..72b8732 100755
+index e585f1c..e263510 100755
 --- a/bin/validity-sensors-firmware
 +++ b/bin/validity-sensors-firmware
-@@ -79,9 +79,6 @@ if __name__ == "__main__":
+@@ -31,8 +31,9 @@ from usb import core as usb_core
  
-     args = parser.parse_args()
+ from validitysensor.firmware_tables import FIRMWARE_NAMES, FIRMWARE_URIS
+ from validitysensor.usb import SupportedDevices
++from validitysensor.tmpdir import tmpdir
  
--    if os.geteuid() != 0:
--        raise Exception('This script needs to be executed as root')
--
-     dev_type = None
-     for d in SupportedDevices:
-         dev = usb_core.find(idVendor=d.value[0], idProduct=d.value[1])
+-python_validity_data = '/usr/share/python-validity/'
++python_validity_data = tmpdir
+ 
+ 
+ def download_and_extract_fw(dev_type, fwdir, fwuri=None):

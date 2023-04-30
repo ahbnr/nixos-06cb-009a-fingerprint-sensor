@@ -1,13 +1,23 @@
 diff --git a/dbus_service/dbus-service b/dbus_service/dbus-service
-index 31e10b7..a6457ae 100755
+index 31e10b7..c1aae52 100755
 --- a/dbus_service/dbus-service
 +++ b/dbus_service/dbus-service
-@@ -191,7 +191,7 @@ class Device(dbus.service.Object):
+@@ -28,6 +28,7 @@ from validitysensor.sid import sid_from_string
+ from validitysensor.tls import tls
+ from validitysensor.usb import usb
+ from validitysensor.fingerprint_constants import finger_ids
++from validitysensor.tmpdir import tmpdir
+ 
+ dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+ 
+@@ -190,9 +191,7 @@ class Device(dbus.service.Object):
+         logging.debug('RunCmd')
          return hexlify(tls.app(unhexlify(cmd))).decode()
  
- 
+-
 -backoff_file = '/usr/share/python-validity/backoff'
-+backoff_file = '/tmp/python-validity-backoff'
- 
+-
++backoff_file = tmpdir + '/backoff'
  
  # I don't know how to tell systemd to backoff in case of multiple instance of the same template service, help!
+ def backoff():
