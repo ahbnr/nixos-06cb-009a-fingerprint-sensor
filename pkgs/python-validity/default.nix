@@ -55,6 +55,11 @@ in buildPythonPackage rec {
     # add support for using a temporary directory, which is needed for multiple of the above patches
     cp ${./tmpdir.py} validitysensor/tmpdir.py
 
+    # the firmware download script depends on innoextract
+    substituteInPlace bin/validity-sensors-firmware \
+          --replace "'innoextract'" \
+                    "'${pkgs.innoextract}/bin/innoextract'"
+
     # change service file to use the new executable path
     substituteInPlace debian/python3-validity.service \
           --replace "ExecStart=/usr/lib/python-validity/dbus-service" \
