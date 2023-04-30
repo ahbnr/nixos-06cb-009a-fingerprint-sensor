@@ -35,6 +35,11 @@ in buildPythonPackage rec {
     # Hence, we remove its declaration as a data file and declare it as a script instead, so that it is installed to /bin.
     # This is because the buildPythonPackage wrapper will only wrap the executable correctly if it is in the /bin directory
     ./setup.py.patch
+
+    # The firmware download script is run as part of the installation process and does not need root privileges on NixOS, since we are just
+    # writing to the store during building.
+    # Hence, this patch removes the check for root permissions
+    ./validity-sensors-firmware.patch
   ];
 
   postPatch = ''
@@ -68,6 +73,10 @@ in buildPythonPackage rec {
 
   postInstall = ''
     # this section has been adapted from this AUR package https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=python-validity
+    # and the python-valditiy debian post install script https://github.com/uunicorn/python-validity/blob/0.14/debian/python3-validity.postinst
+
+    # Download sensor firmware, depending on the sensor
+    $out/bin/validity-sensors-firmware
 
     install -D -m 644 debian/python3-validity.service \
       $out/lib/systemd/system/python3-validity.service

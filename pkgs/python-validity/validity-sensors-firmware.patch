@@ -1,0 +1,14 @@
+diff --git a/bin/validity-sensors-firmware b/bin/validity-sensors-firmware
+index e585f1c..72b8732 100755
+--- a/bin/validity-sensors-firmware
++++ b/bin/validity-sensors-firmware
+@@ -79,9 +79,6 @@ if __name__ == "__main__":
+ 
+     args = parser.parse_args()
+ 
+-    if os.geteuid() != 0:
+-        raise Exception('This script needs to be executed as root')
+-
+     dev_type = None
+     for d in SupportedDevices:
+         dev = usb_core.find(idVendor=d.value[0], idProduct=d.value[1])
