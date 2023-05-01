@@ -14,6 +14,7 @@ There are two ways this flake can be used to drive the sensor:
 * [Loading the flake](#loading-this-flake)
 * [Setup based on open-fprintd and python-validity](#setup-based-on-open-fprintd-and-python-validity)
 * [Setup based on fprintd and bingch's driver](#setup-based-on-fprintd-and-bingchs-driver)
+* [Troubleshooting](#troubleshooting)
 
 # Loading this flake
 
@@ -44,7 +45,7 @@ outputs = {
   # ...
   nixos-06cb-009a-fingerprint-sensor,
   ...
-}@attrs: {
+}: {
   nixosConfigurations.<myhostname> = nixpkgs.lib.nixosSystem {
     # ...
     modules = [
@@ -91,6 +92,9 @@ security.pam.services.sudo.text = ''
 '';
 ```
 
+For this, `nixos-06cb-009a-fingerprint-sensor` needs to be available in your configuration, see [this troubleshooting step](#error-undefined-variable-nixos-06cb-009a-fingerprint-sensor).
+
+
 # Setup based on fprintd and bingch's driver
 
 1. This driver can verify fingerprints, but it can not enroll them. Also, it requires some sensor calibration data which is extracted by python-validity.
@@ -131,8 +135,9 @@ security.pam.services.sudo.text = ''
    ```
 
    Here, the path `./calib-data.bin` should point to the calibration data you copied in step 1.
+   Also, `nixos-06cb-009a-fingerprint-sensor` needs to be available in your configuration, see [this troubleshooting step](#error-undefined-variable-nixos-06cb-009a-fingerprint-sensor).
 
-   If you are using the sensor 138a:0097 and not 06cb:009a, you might still be able to make this work by using the original
+   Furthermore, if you are using the sensor 138a:0097 and not 06cb:009a, you might still be able to make this work by using the original
    [libfprint-tod-vfs0090 driver by Marco Trevisan](https://gitlab.freedesktop.org/3v1n0/libfprint-tod-vfs0090) instead of bingch's fork.
    That driver is part of the official NixOS packages and it does not require the calibration data file.
    Hence, the following configuration might work for 138a:0097 (untested):
@@ -155,3 +160,45 @@ security.pam.services.sudo.text = ''
 
 5. The fingerprint enrolling mechanism must be invoked again (i.e. repeat the `fprintd-enroll` invocation of step 1).
    Now, `fprintd` should function normally. By default NixOS comes with PAM configuration to use fingerprints for authenticating sudo. Also GDM now lets you log in using your fingerprint.
+
+# Troubleshooting
+
+In general, you can find troubleshooting and further usage information in the python-validity repository: https://github.com/uunicorn/python-validity
+However, there is also some troubleshooting information specific to this flake in the following sections:
+
+## Error: `undefined variable 'nixos-06cb-009a-fingerprint-sensor'`
+
+For some of the setup steps, you need access to the `nixos-06cb-009a-fingerprint-sensor` input in your configuration.
+If you are not placing this configuration in your `flake.nix` file but if you are using an external configuration file like `configuration.nix` instead, you need to pass on the `nixos-06cb-009a-fingerprint-sensor` input to that configuration file.
+
+You can do this by filling the `specialArgs` parameter of `nixosSystem` with your flake inputs.
+I.e. capture your flake inputs in a variable `attrs` like this:
+```nix
+outputs = {
+  self, nixpkgs,
+  # ...
+  nixos-06cb-009a-fingerprint-sensor,
+  ...
+}@attrs {
+  ...
+}
+```
+
+Then set `specialArgs = attrs;` in your `nixosSystem` call like this:
+```nix
+nixosConfigurations.<myhostname> = nixpkgs.lib.nixosSystem {
+  # ...
+  specialArgs = attrs;
+  modules = [
+    # ...
+  ];
+};
+```
+
+Finally, specify `nixos-06cb-009a-fingerprint-sensor` as an argument of your external configuration file.
+E.g. your `configuration.nix` should start like this:
+```nix
+{ config, pkgs, lib, nixos-06cb-009a-fingerprint-sensor, ... }:
+```
+
+Now, `nixos-06cb-009a-fingerprint-sensor` should be available as a variable in your configuration.
