@@ -66,8 +66,21 @@ services.python-validity.enable = true;
 
 Also, you need to make sure, `services.fprintd` is not enabled, and `fprintd` is not in your `systemPackages`, otherwise conflicts may arise.
 
-3. After rebuilding your system, you can register fingerprints for a user with `fprintd-enroll` and also use all the other `fprintd-` user tooling.
-More information and some troubleshooting help can be found in the python-validity repository: https://github.com/uunicorn/python-validity
+3. Rebuild your system.
+
+3. You can now register fingerprints for a user with `fprintd-enroll` and also use all the other `fprintd-` user tooling.
+   More information and some troubleshooting help can be found in the python-validity repository: https://github.com/uunicorn/python-validity
+
+   Furthermore, if this is the first time you are using `python-validity` with your fingerprint sensor then you might need to download the appropriate firmware and upload it to the sensor. Luckily, `python-validity` already comes with scripts that automatically download the right firmware and install it.
+
+   In short, if you get an error `list_devices failed` and/or `journalctl -u python3-validity` contains an error similar to `FileNotFoundError: [Errno 2] No such file or directory: '/tmp/python-validity/6_07f_lenovo_mis_qm.xpfwext'`, then you can download and install the firmware like this (run this as root!):
+   ```sh
+   systemctl stop python3-validity
+   validity-sensors-firmware
+   systemctl start python3-validity
+   ```
+
+   Afterwards, try enrolling your fingerprint again.
 
 4. Configure PAM to use the fingerprint sensor for authentication. E.g. for configuring `sudo` to ask for a fingerprint, you can use this configuration:
 
