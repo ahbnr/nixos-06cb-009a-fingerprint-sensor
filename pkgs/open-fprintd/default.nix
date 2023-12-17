@@ -46,11 +46,6 @@ in buildPythonPackage rec {
     pygobject3
   ];
 
-  # circumvent known bug in setuptools regarding data file installation: https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.section.md#install_data--data_files-problems-install_data-data_files-problems
-  preInstall = ''
-    ${python.interpreter} setup.py install_data --install-dir=$out --root=$out
-  '';
-
   postInstall = ''
     # this section has been adapted from this AUR package: https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=open-fprintd
 
