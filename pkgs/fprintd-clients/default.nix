@@ -18,7 +18,7 @@ fprintd.overrideAttrs ({
     mesonFlags
     ++ [
       (lib.mesonBool "daemon" false)
-      (lib.mesonBool "pam" false)
+      (lib.mesonBool "pam" true)
       (lib.mesonBool "systemd" false)
     ];
 
