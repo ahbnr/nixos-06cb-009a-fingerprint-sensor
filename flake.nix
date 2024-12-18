@@ -2,7 +2,7 @@
   description = "Provides packages, modules and functions for the 06cb:009a fingerprint sensor.";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.11";
+    nixpkgs.url = "nixpkgs/nixos-24.11";
   };
 
   outputs = {
