@@ -11,15 +11,24 @@
   }: let
     pkgs = import nixpkgs { system = "x86_64-linux"; };
     localPackages = import ./pkgs/default.nix { pkgs = pkgs; };
-  in {
-    nixosModules.python-validity = { config, lib, ... }: import ./modules/python-validity { config = config; lib = lib; localPackages = localPackages; };
-    nixosModules.open-fprintd = { config, lib, ... }: import ./modules/open-fprintd { config = config; lib = lib; localPackages = localPackages; };
-
-    localPackages = localPackages;
-
-    lib = import ./lib {
+    localLib = import ./lib {
       pkgs = pkgs;
       localPackages = localPackages;
     };
+  in {
+    nixosModules.python-validity = args: import ./modules/python-validity (
+      args // {
+        localPackages = localPackages;
+      }
+    );
+
+    nixosModules.open-fprintd = ./modules/open-fprintd;
+
+    nixosModules."06cb-009a-fingerprint-sensor" = args: import ./modules/06cb-009a-fingerprint-sensor (
+      args // {
+        localPackages = localPackages;
+        libfprint-2-tod1-vfs0090-bingch = localLib.libfprint-2-tod1-vfs0090-bingch;
+      }
+    );
   };
 }

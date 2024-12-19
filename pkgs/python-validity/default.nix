@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
 }: let
@@ -65,6 +64,10 @@ in
                       "ExecStart=$out/bin/python-validity-dbus-service" \
             --replace " --debug" ""
     '';
+
+    nativeBuildInputs = with pkgs; [
+      wrapGAppsNoGuiHook
+    ];
 
     propagatedBuildInputs = with python3Packages; [
       cryptography
