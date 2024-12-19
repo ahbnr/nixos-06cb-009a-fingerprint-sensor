@@ -24,7 +24,7 @@ inputs = {
   # ...
 
   nixos-06cb-009a-fingerprint-sensor = {
-    url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
+    url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=23.11";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 };
