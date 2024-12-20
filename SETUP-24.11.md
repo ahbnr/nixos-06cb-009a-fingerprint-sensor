@@ -40,7 +40,7 @@ outputs = {
     # ...
     modules = [
       # ...
-      nixos-06cb-009a-fingerprint-sensor.nixosModules."nixos-06cb-009a-fingerprint-sensor"
+      nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
     ];
   };
 };
