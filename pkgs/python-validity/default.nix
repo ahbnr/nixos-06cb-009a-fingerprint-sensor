@@ -9,6 +9,7 @@ in
   buildPythonPackage rec {
     pname = "python-validity";
     version = "0.14";
+    pyproject = true;
 
     src = fetchFromGitHub {
       owner = "uunicorn";
@@ -16,6 +17,10 @@ in
       rev = "${version}";
       sha256 = "sha256-6NbxeokbGW5yP3g9Q/W3k0JiU6g+qyeZfKfw0nBJ37o="; # set to lib.fakeSha256 first to get the hash
     };
+
+    build-system = with python3Packages; [
+      setuptools
+    ];
 
     patches = [
       # the service writes to a temporary file in usr/share, which is write-protected in Nix.
